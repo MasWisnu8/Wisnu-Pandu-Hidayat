@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portofolio | Menajer</title>
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --navy-light: #1a3055;
+    --blue: #2c5282;
+    --blue-light: #3b6ea5;
+    --accent: #e53e3e;
+    --accent-light: #fed7d7;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1a202c;
+    --text-light: #4a5568;
+    --text-muted: #718096;
+    --border: #e2e8f0;
+    --shadow: 0 1px 3px rgba(15,31,61,0.08), 0 1px 2px rgba(15,31,61,0.06);
+    --shadow-lg: 0 10px 30px rgba(15,31,61,0.12);
+    --radius: 14px;
+    --radius-sm: 10px;
+    --radius-full: 9999px;
+    --transition: 0.25s ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 5px; }
+
+  /* ---- Header ---- */
+  header {
+    background: var(--card);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--navy);
+  }
+
+  .nav-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    color: #fff;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.1rem;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 6px;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+  }
+
+  nav a:hover { color: var(--navy); background: var(--bg); }
+  nav a.active { color: var(--navy); background: var(--bg); font-weight: 700; }
+
+  /* ---- Hero ---- */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, var(--blue) 100%);
+    color: #fff;
+    padding: 80px 24px 70px;
+    text-align: center;
+  }
+
+  .hero-content { max-width: 800px; margin: 0 auto; }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 6px 18px;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  .hero-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 4px solid rgba(255,255,255,0.3);
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 800;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-avatar img,
+  .hero-avatar video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-avatar input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .hero-avatar .avatar-placeholder {
+    color: rgba(255,255,255,0.7);
+    font-size: 2.5rem;
+  }
+
+  .hero .avatar-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 6px 12px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 0 0 10px 10px;
+    font-size: 0.75rem;
+    color: #fff;
+    display: none;
+  }
+
+  .hero-avatar:hover .avatar-overlay { display: block; }
+
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+    letter-spacing: -1.5px;
+    line-height: 1.2;
+  }
+
+  .hero .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+  }
+
+  .hero .tagline {
+    font-size: 1.05rem;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 28px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 26px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition);
+  }
+
+  .btn-primary {
+    background: #fff;
+    color: var(--navy);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.4);
+  }
+  .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+  /* ---- Main ---- */
+  .main-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .section-header .badge {
+    background: var(--blue);
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* ---- About / Profile ---- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 36px;
+    margin-bottom: 48px;
+  }
+
+  .about-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--blue);
+  }
+
+  .about-card h3 {
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .about-card p { color: var(--text-light); font-size: 0.95rem; }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .stat {
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--blue);
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+
+  .skill {
+    background: var(--card);
+    padding: 16px 18px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--blue-light);
+  }
+
+  .skill .label {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .skill .level {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  /* ---- Activity Feed ---- */
+  .feed-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .feed-tab {
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border);
+    background: var(--card);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .feed-tab:hover { border-color: var(--blue); color: var(--blue); }
+  .feed-tab.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+  .feed-filter-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .feed-filter-row label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+
+  .feed-filter-row select,
+  .feed-filter-row input {
+    padding: 11px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: var(--card);
+    outline: none;
+    transition: border-color var(--transition);
+    min-width: 0;
+  }
+
+  .feed-filter-row select:focus,
+  .feed-filter-row input:focus { border-color: var(--blue); }
+
+  .feed-filter-row .search { flex: 1; min-width: 220px; }
+
+  .feed-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .feed-controls .count { font-size: 0.9rem; color: var(--text-muted); }
+
+  .feed-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+
+  .feed-empty .icon { font-size: 2.8rem; margin-bottom: 12px; }
+  .feed-empty p { margin-bottom: 6px; }
+  .feed-empty .hint { font-size: 0.88rem; }
+
+  /* Activity cards */
+  .activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 24px;
+  }
+
+  .activity-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .activity-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .activity-card .card-header {
+    padding: 22px 24px;
+    background: linear-gradient(135deg, var(--blue-light), var(--blue));
+    color: #fff;
+  }
+
+  .activity-card .card-header .category {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.8;
+    font-weight: 700;
+  }
+
+  .activity-card .card-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 6px 0 8px;
+  }
+
+  .activity-card .card-header .date {
+    font-size: 0.88rem;
+    opacity: 0.9;
+  }
+
+  .activity-card .card-body {
+    padding: 20px 24px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .activity-card .card-body p {
+    color: var(--text-light);
+    font-size: 0.93rem;
+    line-height: 1.6;
+  }
+
+  .activity-card .card-footer {
+    display: flex;
+    gap: 14px;
+    margin-top: auto;
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .activity-card .card-footer a {
+    color: var(--blue);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: color var(--transition);
+  }
+  .activity-card .card-footer a:hover { color: var(--navy); }
+
+  .activity-card .card-body .status { order: 3; }
+
+  .activity-media {
+    margin-top: 14px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .activity-media img, .activity-media video {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .activity-media video { max-height: 350px; }
+
+  .activity-media .media-fallback {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 40px;
+  }
+
+  .avatar-overlay { display: none; }
+
+  .hero-avatar:hover .avatar-overlay { display: block; }
+
+  /* ---- Add Activity Modal ---- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,31,61,0.55);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--card);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 700px;
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    animation: modalIn 0.25s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .modal-header h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .modal-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    transition: color var(--transition);
+  }
+  .modal-close:hover { color: var(--text); }
+
+  .modal-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    resize: vertical;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(44,82,130,0.1);
+  }
+
+  .form-group textarea { min-height: 120px; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-error {
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    justify-content: flex-end;
+  }
+
+  .form-actions .btn { padding: 12px 26px; }
+
+  .list-section { margin-top: 48px; }
+  .list-section h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: 20px; }
+
+  /* ---- Footer ---- */
+  footer {
+    background: var(--navy);
+    color: #fff;
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 16px; }
+
+  footer .social-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  footer .social-links a {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: opacity var(--transition);
+  }
+  footer .social-links a:hover { opacity: 0.6; }
+
+  footer .copyright { font-size: 0.82rem; opacity: 0.6; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2rem; }
+    .stats-row { grid-template-columns: repeat(3, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 50px 16px 40px; }
+    .hero h1 { font-size: 1.7rem; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .section-header h2 { font-size: 1.25rem; }
+    nav ul { gap: 4px; }
+    nav a { padding: 6px 10px; font-size: 0.82rem; }
+    .nav-cta { display: none; }
+    .activity-grid { grid-template-columns: 1fr; }
+    .feed-filter-row { flex-direction: column; align-items: stretch; }
+    .feed-filter-row .search { min-width: 100%; }
+  }
+
+  /* ---- Admin Mode ---- */
+  .admin-toggle {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: all var(--transition);
+    display: none;
+  }
+  .admin-toggle:hover { background: #c53030; }
+  .admin-toggle.active { display: inline-block; }
+
+  .admin-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 300;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .admin-overlay.open { display: flex; }
+
+  .admin-panel {
+    background: var(--card);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 800px;
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    animation: modalIn 0.25s ease;
+  }
+
+  .admin-panel h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 8px;
+  }
+
+  .admin-panel .sub {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+
+  .admin-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+  }
+
+  .admin-tabs button {
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border);
+    background: var(--card);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .admin-tabs button.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+  }
+
+  .admin-tabs .tab-content {
+    display: none;
+  }
+
+  .admin-tabs .tab-content.active {
+    display: block;
+  }
+
+  .admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .admin-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .admin-form .form-group label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-light);
+  }
+
+  .admin-form input,
+  .admin-form textarea,
+  .admin-form select,
+  .admin-form .swatch {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color var(--transition);
+    width: 100%;
+  }
+
+  .admin-form input:focus,
+  .admin-form textarea:focus,
+  .admin-form select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(44,82,130,0.1);
+  }
+
+  .admin-form textarea { resize: vertical; min-height: 80px; }
+
+  .admin-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .admin-form .swatch {
+    width: auto;
+    min-width: 80px;
+  }
+
+  .admin-form .btn-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .admin-form .btn-group button {
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid var(--border);
+    transition: all var(--transition);
+    background: var(--card);
+    font-size: 0.85rem;
+  }
+
+  .admin-form .btn-group button.active {
+    border-color: var(--blue);
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .admin-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px 0;
+  }
+
+  .admin-list .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+  }
+
+  .admin-list .item .name { font-weight: 600; color: var(--navy); }
+  .admin-list .item .actions { display: flex; gap: 8px; }
+
+  .admin-list .item .actions button {
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+
+  .admin-list .item .actions button.delete { color: var(--accent); border-color: var(--accent-light); }
+  .admin-list .item .actions button.delete:hover { background: var(--accent-light); }
+
+  .admin-empty {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-muted);
+  }
+
+  .admin-btn-row {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .admin-btn-row button {
+    padding: 12px 20px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition);
+  }
+
+  .admin-loading {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  .admin-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--navy);
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    z-index: 400;
+    display: none;
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .admin-form .row { grid-template-columns: 1fr; }
+    .admin-tabs button { font-size: 0.78rem; padding: 6px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <a href="#" class="logo">
+      <span class="logo-icon">◉</span>
+      Portofolio
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#profil">Profil</a></li>
+        <li><a href="#kegiatan">Kegiatan</a></li>
+        <li><a href="#tambah">+ Tambah</a></li>
+      </ul>
+    </nav>
+    <a href="#" class="logo admin-toggle" id="adminToggle" onclick="toggleAdmin()">🔧 Admin</a>
+  </div>
+</header>
+
+<!-- Admin Overlay -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <div class="modal-header" style="border-bottom:1px solid var(--border); padding:20px; display:flex; align-items:center; gap:12px; justify-content:space-between;">
+      <h2>🔐 Admin Panel</h2>
+      <button class="modal-close" onclick="closeAdmin()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;">✕</button>
+    </div>
+    <div class="admin-tabs">
+      <button class="tab active" data-tab="general">👤 Profil & Desain</button>
+      <button class="tab" data-tab="content">📦 Konten</button>
+      <button class="tab" data-tab="links">🔗 Tombol & Tautan</button>
+    </div>
+    <div class="tab-content active" id="tab-general">
+      <div class="admin-form">
+        <div class="form-group">
+          <label>Nama & Jabatan</label>
+          <div class="row">
+            <input type="text" id="adminName" placeholder="Nama Anda">
+            <input type="text" id="adminPosition" placeholder="Jabatan / Posisi">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Deskripsi Singkat</label>
+          <textarea id="adminDescription" rows="3" placeholder="Deskripsi singkat tentang diri Anda..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Foto Profil (Ganti Gambar)</label>
+          <input type="file" id="adminProfile" accept="image/*,video/*">
+          <small style="color:var(--text-muted);font-size:0.75rem;">Maks 5MB. GIF akan beranimasi.</small>
+        </div>
+        <div class="form-group">
+          <label>Tautan Media Sosial</label>
+          <div class="row">
+            <input type="text" id="adminSocial1" placeholder="LinkedIn / Profil 1">
+            <input type="text" id="adminSocial2" placeholder="GitHub / Profil 2">
+            <input type="text" id="adminSocial3" placeholder="Email / Kontak">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Warna Utama (HEX)</label>
+          <input type="color" id="adminColor" value="#0f1f3d">
+        </div>
+        <div class="admin-btn-row">
+          <button class="btn" onclick="closeAdmin()">Batal</button>
+          <button class="btn btn-primary" onclick="saveGeneralSettings()">💾 Simpan</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-content">
+      <div class="admin-form">
+        <div class="form-group">
+          <label>Judul Halaman (H1 Hero)</label>
+          <input type="text" id="adminTitle">
+        </div>
+        <div class="form-group">
+          <label>Subjudul (Tagline)</label>
+          <textarea id="adminTagline" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Kategori Kegiatan</label>
+          <div class="row">
+            <input type="text" id="adminCategory" placeholder="Proyek">
+            <input type="text" id="adminCategory2" placeholder="Workshop">
+            <input type="text" id="adminCategory3" placeholder="Event">
+          </div>
+        </div>
+        <div class="admin-btn-row">
+          <button class="btn" onclick="closeAdmin()">Batal</button>
+          <button class="btn btn-primary" onclick="saveGeneralSettings()">💾 Simpan</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-links">
+      <div class="admin-form">
+        <div class="form-group">
+          <label>Tautan Navigasi (Pemisah |)</label>
+          <input type="text" id="adminNavLinks" placeholder="Profil | Kegiatan | + Tambah">
+        </div>
+        <div class="form-group">
+          <label>Tautan Sosial (Koma Pisah)</label>
+          <input type="text" id="adminSocialLinks" placeholder="linkedin.com, github.com, email@domain.com">
+          <small style="color:var(--text-muted);font-size:0.75rem;">Contoh: linkedin.com/in/username, github.com/username</small>
+        </div>
+        <div class="admin-btn-row">
+          <button class="btn" onclick="closeAdmin()">Batal</button>
+          <button class="btn btn-primary" onclick="saveSocialLinks()">💾 Simpan</button>
+        </div>
+      </div>
+    </div>
+    <div class="admin-btn-row">
+      <button class="btn" onclick="closeAdmin()">Tutup</button>
+      <button class="btn btn-primary" onclick="saveAll()">✓ Simpan & Publikasikan</button>
+    </div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Menajer Profesional</div>
+    <div class="hero-avatar" id="avatarContainer">
+      <img id="avatarImage" src="" alt="Profil" style="display:none;">
+      <video id="avatarVideo" src="" alt="Profil" style="display:none;" loop muted></video>
+      <div class="avatar-placeholder" id="avatarPlaceholder">A</div>
+      <input type="file" id="fProfile" accept="image/*,video/*">
+      <div class="avatar-overlay">Klik untuk ganti foto</div>
+    </div>
+    <h1 id="heroName">[ Nama Anda ]</h1>
+    <p class="subtitle">Memimpin, Mengelola, &amp; Menghasilkan</p>
+    <p class="tagline">Portofolio kegiatan dan proyek yang saya kelola — dari perencanaan, eksekusi, hingga pencapaian hasil terukur.</p>
+    <div class="hero-actions">
+      <a href="#kegiatan" class="btn btn-primary">Lihat Kegiatan</a>
+      <a href="#tambah" class="btn btn-outline">Tambah Kegiatan</a>
+    </div>
+  </div>
+</section>
+
+<main class="main-wrap">
+
+  <!-- Profil -->
+  <section id="profil">
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>🔹 Profil Singkat</h3>
+        <p>
+          Saya adalah seorang menajer yang berfokus pada pengembangan bisnis, pengelolaan proyek, dan pemberdayaan tim.
+          Pengalaman saya mencakup perencanaan strategis, koordinasi lintas fungsi, pengawasan proyek, dan pengukuran kinerja
+          hingga target yang terukur. Saya percaya pada manajemen yang terstruktur tanpa kehilangan kreativitas.
+        </p>
+      </div>
+      <div>
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-number" id="statProjects">0</div>
+            <div class="stat-label">Proyek / Kegiatan</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" id="statCompleted">0</div>
+            <div class="stat-label">Selesai</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" id="statOngoing">0</div>
+            <div class="stat-label">Berbulan</div>
+          </div>
+        </div>
+        <div class="skills-grid">
+          <div class="skill">
+            <div class="label">Strategi</div>
+            <div class="level">Lanjut</div>
+          </div>
+          <div class="skill">
+            <div class="label">Proyek &amp; Manajemen</div>
+            <div class="level">Mumpuni</div>
+          </div>
+          <div class="skill">
+            <div class="label">Koordinasi Tim</div>
+            <div class="level">Lanjut</div>
+          </div>
+          <div class="skill">
+            <div class="label">Analisis &amp; Riset</div>
+            <div class="level">Mumpuni</div>
+          </div>
+          <div class="skill">
+            <div class="label">Komunikasi</div>
+            <div class="level">Lanjut</div>
+          </div>
+          <div class="skill">
+            <div class="label">Manajemen Risiko</div>
+            <div class="level">Cukup</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kegiatan -->
+  <section id="kegiatan">
+    <div class="section-header">
+      <h2>Kegiatan &amp; Proyek</h2>
+      <span class="badge">Disadur berdasarkan tanggal</span>
+    </div>
+
+    <div class="feed-tabs">
+      <button class="feed-tab active" data-filter="semua">Semua</button>
+      <button class="feed-tab" data-filter="berlangsung">Berbulan</button>
+      <button class="feed-tab" data-filter="selesai">Selesai</button>
+      <button class="feed-tab" data-filter="rencana">Rencana</button>
+      <button class="feed-tab" data-filter="dibatalkan">Dibatalkan</button>
+    </div>
+
+    <div class="feed-filter-row">
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Cari kegiatan...">
+      </div>
+      <select id="categoryFilter">
+        <option value="">Semua Kategori</option>
+        <option value="proyek">Proyek</option>
+        <option value="workshop">Workshop</option>
+        <option value="event">Event</option>
+        <option value="manajemen">Manajemen</option>
+        <option value="riset">Riset &amp; Pengembangan</option>
+        <option value="lainnya">Lainnya</option>
+      </select>
+      <input type="date" id="dateFrom">
+      <input type="date" id="dateTo">
+    </div>
+
+    <div class="feed-controls">
+      <span class="count" id="feedCount"></span>
+      <button class="btn btn-primary" id="toggleAddBtn">+ Tambah Kegiatan</button>
+    </div>
+
+    <div id="feedEmpty" class="feed-empty" style="display:none;">
+      <div class="icon">📋</div>
+      <p>Belum ada kegiatan yang tercatat.</p>
+      <p class="hint">Klik tombol <strong>+ Tambah Kegiatan</strong> untuk memulai.</p>
+    </div>
+
+    <div class="activity-grid" id="activityGrid"></div>
+  </section>
+
+  <!-- Form tambah kegiatan -->
+  <section id="tambah" class="list-section" style="display:none;">
+    <div class="section-header">
+      <h2>+ Tambah Kegiatan</h2>
+      <span class="badge">Dibuat baru</span>
+    </div>
+    <div class="modal" id="addModal">
+      <div class="modal-header">
+        <h2>Tambah Kegiatan / Proyek</h2>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="formError" class="form-error" style="display:none;"></div>
+
+        <div class="form-group">
+          <label for="fTitle">Judul Kegiatan</label>
+          <input type="text" id="fTitle" placeholder="Contoh: Implementasi Sistem PDAM Baru" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fCategory">Kategori</label>
+            <select id="fCategory">
+              <option value="proyek">Proyek</option>
+              <option value="workshop">Workshop</option>
+              <option value="event">Event</option>
+              <option value="manajemen">Manajemen</option>
+              <option value="riset">Riset &amp; Pengembangan</option>
+              <option value="lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="fStatus">Status</label>
+            <select id="fStatus">
+              <option value="berlangsung">Berbulan</option>
+              <option value="selesai">Selesai</option>
+              <option value="rencana">Rencana</option>
+              <option value="dibatalkan">Dibatalkan</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fDate">Tanggal (berita/awal)</label>
+            <input type="date" id="fDate" required>
+          </div>
+          <div class="form-group">
+            <label for="fEndDate">Selesai (opsional)</label>
+            <input type="date" id="fEndDate">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fMedia">Foto / Video (opsional)</label>
+          <input type="file" id="fMedia" accept="image/*,video/*">
+          <small style="color:var(--text-muted);font-size:0.75rem;">Gambar (max 3MB), video (max 10MB). Format: JPG, PNG, GIF, MP4, WebM.</small>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn" data-close>Batal</button>
+          <button class="btn btn-primary" id="fSave">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 Portofolio <span id="footerName"></span> — Segala kegiatan ditampilkan sesuai tanggal pendaftaran.</p>
+  <div class="social-links">
+    <a href="#" aria-label="LinkedIn">in</a>
+    <a href="#" aria-label="GitHub">git</a>
+    <a href="#" aria-label="Email">mail</a>
+  </div>
+  <p class="copyright">Dibangun dengan 💙 — Semua data tersimpan secara lokal di peramban Anda.</p>
+</footer>
+
+<script>
+(function() {
+  console.log("Portfolio script executed - readyState:", document.readyState);
+  let activities = [];
+  let nextId = 1;
+
+  const STORAGE_KEY = 'portfolio_activities';
+
+  function loadActivities() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          activities = parsed;
+          nextId = activities.reduce((max, a) => Math.max(max, a.id), 0) + 1;
+        }
+      }
+    } catch (e) {
+      console.warn('Gagal load data:', e);
+    }
+  }
+
+  function saveActivities() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(activities));
+    } catch (e) {
+      console.warn('Gagal simpan data:', e);
+    }
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '—';
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  function getStatusLabel(status) {
+    const map = {
+      berlangsung: 'Berlangsung',
+      selesai: 'Selesai',
+      rencana: 'Rencana',
+      dibatalkan: 'Dibatalkan'
+    };
+    return map[status] || status;
+  }
+
+  function getStatusClass(status) {
+    return 'status-' + status;
+  }
+
+  function getStatusIcon(status) {
+    const map = {
+      berlangsung: '🔄',
+      selesai: '✅',
+      rencana: '📅',
+      dibatalkan: '❌'
+    };
+    return map[status] || '•';
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function readFileAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function handleProfileUpload(file) {
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Foto_profile maksimal 5MB. Pilih file yang lebih kecil.');
+      return;
+    }
+    readFileAsDataURL(file).then(dataUrl => {
+      localStorage.setItem('portfolio_avatar', dataUrl);
+      render();
+    });
+  }
+
+  function handleMediaUpload(file) {
+    if (!file) return;
+    const MAX_SIZE = 10 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      alert('Media maksimal 10MB. Pilih file yang lebih kecil.');
+      return;
+    }
+    readFileAsDataURL(file).then(dataUrl => {
+      return dataUrl;
+    });
+  }
+
+  function escapeHtml(str) {
+
+  function render() {
+    const grid = document.getElementById('activityGrid');
+    const empty = document.getElementById('feedEmpty');
+    const countEl = document.getElementById('feedCount');
+
+    const filter = document.querySelector('.feed-tab.active')?.dataset.filter || 'semua';
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const category = document.getElementById('categoryFilter').value;
+    const dateFrom = document.getElementById('dateFrom').value;
+    const dateTo = document.getElementById('dateTo').value;
+
+    let list = [...activities];
+
+    if (filter === 'berlangsung') list = list.filter(a => a.status === 'berlangsung');
+    else if (filter === 'selesai') list = list.filter(a => a.status === 'selesai');
+    else if (filter === 'rencana') list = list.filter(a => a.status === 'rencana');
+    else if (filter === 'dibatalkan') list = list.filter(a => a.status === 'dibatalkan');
+
+    if (category) list = list.filter(a => a.category === category);
+    if (search) list = list.filter(a => a.title.toLowerCase().includes(search));
+    if (dateFrom) list = list.filter(a => a.date >= dateFrom);
+    if (dateTo) list = list.filter(a => a.date <= dateTo);
+
+    list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+    countEl.textContent = list.length + ' kegiatan';
+
+    if (list.length === 0) {
+      grid.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    grid.innerHTML = list.map((a, i) => {
+      const isLast = i === list.length - 1;
+      const endDate = a.endDate || a.date;
+      const dateRange = endDate !== a.date ? formatDate(a.date) + ' — ' + formatDate(endDate) : formatDate(a.date);
+      return `
+        <article class="activity-card" style="${isLast ? '' : 'margin-bottom:24px;'}">
+          <div class="card-header">
+            <div class="category">${CATEGORY_LABEL[a.category] || a.category}</div>
+            <h3>${escapeHtml(a.title)}</h3>
+            <div class="date">${dateRange}</div>
+          </div>
+          <div class="card-body">
+            <p>${escapeHtml(a.description || '—')}</p>
+            <span class="status ${getStatusClass(a.status)}">${getStatusIcon(a.status)} ${getStatusLabel(a.status)}</span>
+            ${a.media ? `<div class="activity-media">${a.media}</div>` : ''}
+          </div>
+          <div class="card-footer">
+            <a href="#profil">Lihat Profil</a>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  function addActivity(data) {
+    const activity = {
+      id: nextId++,
+      ...data,
+      date: data.date?.slice(0, 10),
+      endDate: data.endDate?.slice(0, 10),
+      created_at: new Date().toISOString()
+    };
+    activities.push(activity);
+    saveActivities();
+    render();
+    return activity;
+  }
+
+  function deleteActivity(id) {
+    activities = activities.filter(a => a.id !== id);
+    saveActivities();
+    render();
+  }
+
+  function openModal() {
+    document.getElementById('addModal').style.display = 'flex';
+    document.getElementById('fTitle').focus();
+  }
+
+  function closeModal() {
+    document.getElementById('addModal').style.display = 'none';
+    document.getElementById('formError').style.display = 'none';
+  }
+
+  function init() {
+    loadActivities();
+
+    const name = localStorage.getItem('portfolio_name') || 'Menajer';
+    document.getElementById('footerName').textContent = name || 'Menajer';
+    document.getElementById('heroName').textContent = name || '[ Nama Anda ]';
+    document.getElementById('heroAvatar').textContent = name ? name.charAt(0).toUpperCase() : 'A';
+
+    // Load profile picture
+    const avatar = localStorage.getItem('portfolio_avatar');
+    if (avatar) {
+      const isVideo = avatar.startsWith('video/');
+      const img = document.getElementById('avatarImage');
+      const video = document.getElementById('avatarVideo');
+      const placeholder = document.getElementById('avatarPlaceholder');
+      if (isVideo) {
+        img.style.display = 'none';
+        video.style.display = 'block';
+        video.src = avatar;
+        if (video.readyState >= 2) video.play().catch(() => {});
+      } else {
+        img.style.display = 'block';
+        video.style.display = 'none';
+        img.src = avatar;
+      }
+      placeholder.style.display = 'none';
+    }
+
+    // Profile upload event
+    document.getElementById('fProfile').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        handleProfileUpload(file);
+      }
+      e.target.value = '';
+    });
+
+    document.querySelectorAll('.feed-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.feed-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('kegiatan').style.display = 'block';
+        document.getElementById('tambah').style.display = 'none';
+        render();
+      });
+    });
+
+    document.getElementById('searchInput').addEventListener('input', render);
+    document.getElementById('categoryFilter').addEventListener('change', render);
+    document.getElementById('dateFrom').addEventListener('change', render);
+    document.getElementById('dateTo').addEventListener('change', render);
+
+    document.getElementById('toggleAddBtn').addEventListener('click', () => {
+      document.getElementById('kegiatan').style.display = 'none';
+      document.getElementById('tambah').style.display = 'block';
+      openModal();
+    });
+
+    document.querySelector('[data-close]').addEventListener('click', closeModal);
+
+    document.getElementById('addModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    document.getElementById('fSave').addEventListener('click', function() {
+      const title = document.getElementById('fTitle').value.trim();
+      const category = document.getElementById('fCategory').value;
+      const status = document.getElementById('fStatus').value;
+      const date = document.getElementById('fDate').value;
+      const endDate = document.getElementById('fEndDate').value;
+      const description = document.getElementById('fDescription').value.trim();
+      const mediaInput = document.getElementById('fMedia');
+      const mediaFile = mediaInput.files[0];
+      let media = null;
+
+      const errors = [];
+      if (!title) errors.push('Judul wajib diisi.');
+      if (!date) errors.push('Tanggal wajib diisi.');
+      if (errors.length) {
+        document.getElementById('formError').style.display = 'block';
+        document.getElementById('formError').textContent = errors.join(' ');
+        return;
+      }
+
+      if (mediaFile) {
+        handleMediaUpload(mediaFile).then(dataUrl => {
+          media = dataUrl;
+          addActivity({
+            title,
+            category,
+            status,
+            date,
+            endDate: endDate || null,
+            description,
+            media
+          });
+          closeModal();
+        });
+      } else {
+        addActivity({
+          title,
+          category,
+          status,
+          date,
+          endDate: endDate || null,
+          description
+        });
+        closeModal();
+      }
+    });
+
+    render();
+
+    const completed = activities.filter(a => a.status === 'selesai').length;
+    const ongoing = activities.filter(a => a.status === 'berlangsung').length;
+    document.getElementById('statProjects').textContent = activities.length;
+    document.getElementById('statCompleted').textContent = completed;
+    document.getElementById('statOngoing').textContent = ongoing;
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
